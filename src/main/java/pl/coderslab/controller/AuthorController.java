@@ -1,5 +1,8 @@
 package pl.coderslab.controller;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,12 +11,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pl.coderslab.entity.Author;
+import pl.coderslab.entity.Book;
 import pl.coderslab.service.AuthorService;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
 
-@RestController
+@Controller
 class AuthorController {
 
     private final AuthorService authorService;
@@ -71,4 +76,46 @@ class AuthorController {
     void deleteById(@PathVariable Long id) {
         authorService.deleteById(id);
     }
+
+    @GetMapping(path = "/author/add")
+    String showAddAuthorForm(Model model) {
+        model.addAttribute("author", new Author());
+        return "author/add";
+    }
+
+    @PostMapping(path = "/author/add")
+    String processAddAuthorForm(@Valid Author author, BindingResult errors) {
+        // walidacja
+        if(errors.hasErrors()){
+            return "author/add";
+        }
+        authorService.update(author);
+        return "redirect:/author/list";
+    }
+
+    @GetMapping(path = "/author/list")
+    String showAuthorList(Model model) {
+
+        List<Author> authors = authorService.findAll();
+        model.addAttribute("authors", authors);
+
+        return "author/list";
+    }
+
+    @GetMapping("/author/edit")
+    public String showUpdateAuthorForm(Model model, @RequestParam Long id) {
+        model.addAttribute("author", authorService.findById(id));
+        return "author/edit";
+    }
+
+    @PostMapping("/author/edit")
+    public String processUpdateAuthorForm(@Valid Author author, BindingResult result) {
+        if (result.hasErrors()) {
+            return "author/edit";
+        }
+        authorService.update(author);
+        return "redirect:/author/list";
+    }
+
+
 }

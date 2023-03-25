@@ -2,7 +2,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <title>Add book</title>
+    <title>Edit book</title>
     <style>
         .error{
             color:red;
@@ -24,7 +24,8 @@
     <div> Authors: <form:select path="authors" items="${authors}" itemLabel="fullName" itemValue="id"
                                 multiple="true"/><form:errors path="authors" cssClass="error"/></div>
     <div> Pages: <form:input path="pages" type="number" min = "1" placeholde = "Podaj liczbę stron"/><form:errors path="pages" cssClass="error"/></div>
-    <input type="submit" value="Add book">
+    <form:hidden path="id"/>
+    <input type="submit" value="Save book">
 </form:form>
 
 </body>
