@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.coderslab.dao.BookDao;
 import pl.coderslab.entity.Author;
 import pl.coderslab.entity.Book;
+import pl.coderslab.entity.Category;
 import pl.coderslab.entity.Publisher;
 import pl.coderslab.service.AuthorService;
 import pl.coderslab.service.BookService;
@@ -80,6 +81,16 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> findByTitle(String title) {
+        return null;
+    }
+
+    @Override
+    public List<Book> findByCategory(Category category) {
+        return null;
+    }
+
+    @Override
+    public List<Book> findByCategoryId(Long id) {
         return null;
     }
 

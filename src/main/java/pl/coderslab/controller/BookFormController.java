@@ -78,7 +78,7 @@ class BookFormController {
     }
 
     //http://localhost:8080/book/search?title=Java+techniki+kodowania
-    @GetMapping(path = "/book/search")
+    @GetMapping(path = "/book/search", params = "title")
     String findByTitle(@RequestParam String title, Model model){
 
         List<Book> books = bookService.findByTitle(title);
@@ -86,6 +86,29 @@ class BookFormController {
 
         return "book/list";
     }
+
+    //http://localhost:8080/book/search?id=2
+    @GetMapping(path = "/book/search", params = "id")
+    String findByCategory(Category category, Model model){
+
+        List<Book> books = bookService.findByCategory(category);
+        model.addAttribute("books", books);
+
+        return "book/list";
+    }
+
+    //http://localhost:8080/book/search?categoryId=2
+    @GetMapping(path = "/book/search", params = "categoryId")
+    String findByCategoryId(@RequestParam Long categoryId, Model model){
+
+        List<Book> books = bookService.findByCategoryId(categoryId);
+        model.addAttribute("books", books);
+
+        return "book/list";
+    }
+
+
+
 
     @ModelAttribute("publishers")
     List<Publisher> publishers() {

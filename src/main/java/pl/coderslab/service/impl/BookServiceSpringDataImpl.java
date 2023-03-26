@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import pl.coderslab.entity.Author;
 import pl.coderslab.entity.Book;
+import pl.coderslab.entity.Category;
 import pl.coderslab.entity.Publisher;
 import pl.coderslab.repository.BookRepository;
 import pl.coderslab.service.AuthorService;
@@ -82,6 +83,16 @@ public class BookServiceSpringDataImpl implements BookService {
     @Override
     public List<Book> findByTitle(String title) {
         return bookRepository.findByTitle(title);
+    }
+
+    @Override
+    public List<Book> findByCategory(Category category) {
+        return bookRepository.findByCategory(category);
+    }
+
+    @Override
+    public List<Book> findByCategoryId(Long id) {
+        return bookRepository.findByCategoryId(id);
     }
 
 
