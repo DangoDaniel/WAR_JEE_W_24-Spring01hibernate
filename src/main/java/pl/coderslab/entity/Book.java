@@ -54,4 +54,8 @@ public class Book {
 
     @Min(1)
     private int pages;
+    //encje book rozszerzamy o category
+    @ManyToOne(fetch = FetchType.LAZY)
+    @NotNull
+    private Category category;
 }

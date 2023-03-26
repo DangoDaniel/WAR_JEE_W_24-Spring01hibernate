@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.coderslab.entity.Author;
 import pl.coderslab.entity.Book;
+import pl.coderslab.entity.Category;
 import pl.coderslab.entity.Publisher;
 import pl.coderslab.service.AuthorService;
 import pl.coderslab.service.BookService;
+import pl.coderslab.service.CategoryService;
 import pl.coderslab.service.PublisherService;
 
 import javax.validation.Valid;
@@ -29,6 +31,8 @@ class BookFormController {
     private final BookService bookService;
     private final PublisherService publisherService;
     private final AuthorService authorService;
+
+    private final CategoryService categoryService;
 
     @GetMapping(path = "/book/form")
     String showAddBookForm(Model model) {
@@ -73,6 +77,16 @@ class BookFormController {
         return "book/list";
     }
 
+    //http://localhost:8080/book/search?title=Java+techniki+kodowania
+    @GetMapping(path = "/book/search")
+    String findByTitle(@RequestParam String title, Model model){
+
+        List<Book> books = bookService.findByTitle(title);
+        model.addAttribute("books", books);
+
+        return "book/list";
+    }
+
     @ModelAttribute("publishers")
     List<Publisher> publishers() {
         return publisherService.findAll();
@@ -82,5 +96,12 @@ class BookFormController {
     List<Author> authors() {
         return authorService.findAll();
     }
+
+    @ModelAttribute("categories")
+    List<Category> categories() {
+        return categoryService.findAll();
+    }
+
+
 
 }

@@ -5,6 +5,7 @@ import pl.coderslab.entity.Book;
 import pl.coderslab.entity.Publisher;
 
 import java.util.List;
+import java.util.SimpleTimeZone;
 
 public interface BookService {
 
@@ -25,4 +26,6 @@ public interface BookService {
     void update(Book book);
 
     void deleteById(Long id);
+
+    List<Book> findByTitle (String title);
 }
